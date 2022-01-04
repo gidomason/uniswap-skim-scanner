@@ -25,16 +25,23 @@ const config: HardhatUserConfig = {
   },
   networks: {
     mainnet: {
-      url: `https://mainnet.infura.io/v3/${process.env.INFURA_PROJECT_ID}`,
+//      url: `https://mainnet.infura.io/v3/${process.env.INFURA_PROJECT_ID}`,
+//      url: `https://mainnet.infura.io/v3/72e17810a98144ed8fd9858977f4e480}`,
+    url: "https://speedy-nodes-nyc.moralis.io/e5a9189dbc2434f16f95c642/eth/mainnet"
     },
     avax: {
       url: "https://api.avax.network/ext/bc/C/rpc",
+//	url: "https://speedy-nodes-nyc.moralis.io/e5a9189dbc2434f16f95c642/avalanche/mainnet"
     },
     bsc: {
-      url: "https://bsc-dataseed.binance.org/",
+//      url: "https://bsc-dataseed.binance.org/",
+      url: "https://speedy-nodes-nyc.moralis.io/e5a9189dbc2434f16f95c642/bsc/mainnet",
+//      gas: 2100000,
+//      gasPrice: 20000000000
     },
     polygon: {
-      url: "https://rpc-mainnet.maticvigil.com/",
+//      url: "https://rpc-mainnet.maticvigil.com/",
+    url: "https://speedy-nodes-nyc.moralis.io/e5a9189dbc2434f16f95c642/polygon/mainnet"
     },
     xdai: {
       url: "https://rpc.xdaichain.com/",
@@ -48,7 +55,7 @@ const config: HardhatUserConfig = {
       },
     },
     avax: {
-      multicallAddress: "",
+      multicallAddress: "0xa00FB557AA68d2e98A830642DBbFA534E8512E5f",
       uniswapClones: {
         pangolin: "0xefa94DE7a4656D787667C749f7E1223D71E9FD88",
       },

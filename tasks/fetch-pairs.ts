@@ -43,13 +43,18 @@ task("fetch-pairs", "Fetch token pairs from Uniswap factories").setAction(
         // On-chain read might timeout if we try to read too much data
         // so we need to cap the number of pairs we read at once
         const MAX_PAIRS_READ = 1000;
+//        const MAX_PAIRS_READ = 500;
         while (numPairs > 0) {
+	    console.log(numPairs);
+//	    console.log([...Array(Math.min(numPairs, MAX_PAIRS_READ)).keys()]);
+	    try{
           const allPairsData = await multicall.aggregate(
             uniswapFactoryInterface,
             [...Array(Math.min(numPairs, MAX_PAIRS_READ)).keys()].map((i) => ({
               target: factoryAddress,
               method: "allPairs",
-              args: [i],
+//              args: [i],
+              args: [numPairs-i-1],
             }))
           );
 
@@ -58,11 +63,19 @@ task("fetch-pairs", "Fetch token pairs from Uniswap factories").setAction(
             ...allPairsData.map((pairData) => pairData[0]),
           ];
           numPairs -= MAX_PAIRS_READ;
+	    }
+	    catch(e){
+	    console.log(e);
+	    }
         }
 
+//duplicates
+	console.log(allPairs);
+	const allPairsUniq=[...new Set(allPairs)];
+//	const allPairsUniq = allPairs.filter((x, i) => i === allPairs.indexOf(x))
         await fs.writeFile(
           `./pairs/${name}.json`,
-          JSON.stringify(allPairs, null, 2)
+          JSON.stringify(allPairsUniq, null, 2)
         );
 
         console.log(`Token pairs saved to './pairs/${name}.json'`);
